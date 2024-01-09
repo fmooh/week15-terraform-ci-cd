@@ -1,12 +1,13 @@
 pipeline {
    agent any 
+   
    stages {
-    stage('init'){
+    stage('initialize'){
         steps {
             sh 'terraform init'
         }
     }
-    stage('format'){
+    stage('format the code'){
         steps{
             sh 'terraform fmt'
         }
@@ -28,3 +29,5 @@ pipeline {
     }
    }
 }
+    
+   
