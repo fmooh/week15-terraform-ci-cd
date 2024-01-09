@@ -1,27 +1,32 @@
+
 pipeline {
     agent any
-    tools{
-      maven 'M2_HOME'
-    }
-     stages{
-      stage('clean'){
-       steps {
-         sh 'mvn clean'
-       }
-    }
-    stage('compile'){
-      steps{
-        sh 'mvn compile'
-      }
-    }
-    stage('install'){
-      steps{
-        sh 'mvn install'
-        sh 'mvn package'
 
-      }
-    }
-    
-  }
-
+    stages {
+        stage('initialize') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+        stage('format the code') {
+            steps {
+               sh 'terraform fmt'
+            }
+        }
+         stage('validate') {
+            steps {
+                sh 'terraform validate'
+            }
+        }
+     stage('plan') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
+        stage('apply') {
+            steps {
+                sh 'terraform apply --auto-approve'
+            }
+        }
+    }        
 }
